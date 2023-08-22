@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Get the CSV file name from the user
 echo "Enter the name of the CSV file: "
 read csv_file_name
 
@@ -15,11 +14,9 @@ if [[ "$file_extension" != "csv" ]]; then
   exit 1
 fi
 
-# Define functions for each menu choice
 function display_rows_and_columns() {
     num_columns=$(head -n 1 "$csv_file_name" | tr ',' '\n' | wc -l)
 
-    # Count the number of rows (excluding the header)
     num_rows=$(tail -n +2 "$csv_file_name" | wc -l)
 
     echo "Number of columns: $num_columns"
@@ -72,7 +69,7 @@ function sorting() {
   read column_name
 }
 
-# Create a menu of options
+#menu
 menu_options=(
   "1.Display the number of rows and columns in the CSV file"
   "2.List unique values in a specified column"
@@ -84,21 +81,16 @@ menu_options=(
   "8.Sorting the CSV file based on a specific column"
   "0.Exit"
 )
-
-# Display the menu
 echo "Welcome to the CSV file analysis tool!"
 echo "Please select one of the following options:"
 for option in "${menu_options[@]}"; do
   echo "  ${option}"
 done
 
-# Get the user's choice
 echo "Enter your choice: "
 read choice
 
-# Process the user's choice
 while [[ $choice != 0 ]]; do
-  # Call the corresponding function
   case $choice in
     "1")
       display_rows_and_columns
@@ -125,14 +117,10 @@ while [[ $choice != 0 ]]; do
       sorting
       ;;
   esac
-
-  # Display the menu again
   echo "Please select one of the following options:"
   for option in "${menu_options[@]}"; do
     echo "  ${option}"
   done
-
-  # Get the user's choice
   echo "Enter your choice: "
   read choice
 done
